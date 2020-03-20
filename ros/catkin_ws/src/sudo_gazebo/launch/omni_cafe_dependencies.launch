@@ -1,0 +1,10 @@
+<launch>
+  <arg name="use_sim_time" default="true"/>
+  <!--Set use sim_time flag -->
+  <group if="$(arg use_sim_time)">
+    <param name="/use_sim_time" value="true" />
+  </group>
+  <include file="$(find sudo_gazebo)/launch/tf.launch" />
+  <include file="$(find stage_nav)/launch/g_stage_sudo_navigation.launch" />
+  <node name="NN_estimation" pkg="gazebo_controller" type="cafe_room_cnn_live_sudo.py" output="log"/>
+</launch>

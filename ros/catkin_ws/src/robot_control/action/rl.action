@@ -1,0 +1,8 @@
+#Given Action
+int8 action
+---
+#Result definition
+int8 result
+---
+#Feedback
+int8 feedback

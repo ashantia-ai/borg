@@ -1,0 +1,6 @@
+#ros bin and build path
+
+bin/
+build/
+
+*.cmake

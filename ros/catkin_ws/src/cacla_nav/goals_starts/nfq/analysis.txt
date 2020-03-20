@@ -1,0 +1,20 @@
+------ Iteration No 101 ------
+Start Position X: 1 Y: 1 Theta: 0
+Goal Position X: 33 Y: 13 Theta: 0.0
+Average reward over last 100 runs: -3.020564812295069
+
+Changing Parameters Section:
+    epsilon: 0.100000
+Current Win Ration: 0.970297 
+Learning done. Updating the initial Position
+--------------------------------------------
+------ Iteration No 12141 ------
+Start Position X: 1 Y: 1 Theta: 0
+Goal Position X: 33 Y: 13 Theta: 0.0
+Average reward over last 100 runs: -1.101146430826335
+
+Changing Parameters Section:
+    epsilon: 0.100000
+Current Win Ration: 0.990099 
+Learning done. Updating the initial Position
+--------------------------------------------

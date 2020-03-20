@@ -1,0 +1,7 @@
+map_type: costmap
+
+obstacle_layer_laser:
+  laser_scan_sensor: {clearing: true, data_type: LaserScan, expected_update_rate: 0.1, marking: true, obstacle_range: 8, raytrace_range: 10, sensor_frame: laser_link, topic: /sudo/laser/scan}
+
+
+

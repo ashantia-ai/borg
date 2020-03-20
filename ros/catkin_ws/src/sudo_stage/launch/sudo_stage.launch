@@ -1,0 +1,5 @@
+<launch>
+	<arg name="number"/>
+		
+	<node pkg="stage_ros" type="stageros" respawn="false" name="sudo_stage" output="screen" args="$(find sudo_stage)/world/kitchen_$(arg number).world" />
+</launch>

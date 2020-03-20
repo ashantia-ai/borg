@@ -1,0 +1,26 @@
+<launch>
+
+    <!-- static transform for Camera -->
+    <!--node pkg="tf" type="static_transform_publisher" name="base_link_to_webcam_link" args="0.2 0 0.77 0 0 0  base_link webcam_link 10" /-->
+    <!-- static transform for Kinects -->
+    <!--node pkg="tf" type="static_transform_publisher" name="base_link_to_camera_link" args="0.2 0 1.62 0 1.24 0  base_link camera_link 10" /-->
+    <!--node pkg="tf" type="static_transform_publisher" name="base_link_to_camera2_link" args="0.07 0 1.85 0 0.33 0  base_link camera2_link 10" /-->
+    <!-- Gazebo transform is messed up, these are manually tuned -->
+    <!--node pkg="tf" type="static_transform_publisher" name="base_link_to_camera_link" args="0.2 0 1.62 -1.57 0 -2.81  base_link camera_link 10" /-->
+    <!--node pkg="tf" type="static_transform_publisher" name="base_link_to_camera2_link" args="0.07 0 1.85 -1.57 0 -1.9  base_link camera2_link 10" /--> 
+    
+    <!-- static transform for Laser -->
+    <!--node pkg="tf" type="static_transform_publisher" name="base_link_to_laser_link" args="-0.2 0 0.3 3.14 0 0   base_link laser_link 10" /-->
+    
+    
+    <!-- Chassis Connections -->
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_chassis" args="0.00 0 0.16 0 0 0  base_link chassis 10" />
+    <node pkg="tf" type="static_transform_publisher" name="chassis_to_bottom_body_box" args="0.04 0 0.32 0 0 0  chassis bottom_body_box 10" />
+    <node pkg="tf" type="static_transform_publisher" name="bottom_body_box_to_top_body_box" args="0.04 0 0.74 0 0 0  bottom_body_box top_body_box 10" />
+    
+    <!-- Wheel Connections -->
+     
+    <!--node pkg="tf" type="static_transform_publisher" name="base_link_to_right_wheel" args="0.1 -.17 0.11 0 1.5707 1.5707  chassis right_wheel 10" /-->
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_left_wheel" args="0.1 .17 0.11 0 1.5707 1.5707  chassis left_wheel 10" />
+    <node pkg="tf" type="static_transform_publisher" name="bottom_body_box_to_mico_arm_base" args="0.2 0 0 0 0 0  bottom_body_box arm_base 10" />
+</launch>

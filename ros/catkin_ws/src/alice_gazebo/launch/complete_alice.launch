@@ -1,0 +1,35 @@
+<launch>
+  <arg name="use_sim_time" default="true"/>
+  <!--Set use sim_time flag -->
+  <group if="$(arg use_sim_time)">
+    <param name="/use_sim_time" value="true" />
+  </group>
+  
+  <!-- Load robot model -->
+  <param name="robot_description" textfile="$(find alice_description)/urdf/complete_model.urdf"/>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!--<arg name="world_name" value="$(find alice_gazebo)/worlds/sudo.world"/>-->
+    <!-- more default parameters can be changed here -->
+  </include>
+  
+  <!-- Loads controller manager to actually simulate joint movements -->
+  <node name="spawn_arm" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="alice"
+  args="mico_joint_trajectory_action_controller mico_finger_1_joint_controller mico_finger_2_joint_controller joint_state_controller" />
+
+  <!-- Spawn sudo into Gazebo -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find alice_description)/urdf/complete_model.urdf -urdf -z 0.2 -model alice" />  
+  <!-- Calling transforms -->
+  <include file="$(find alice_gazebo)/launch/complete_tf_gazebo.launch" />
+  
+  <!-- Loads ros controllers parameters for gazebo-->
+  <rosparam file="$(find alice_description)/urdf/sudo_control.yaml" command="load"/>
+  
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/alice/joint_states" />
+    <remap from="robot_description" to="robot_description_rsp" />
+  </node>
+  
+</launch>

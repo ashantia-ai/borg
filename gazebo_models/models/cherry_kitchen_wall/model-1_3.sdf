@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<sdf version="1.3">
+  <model name="Cherry Kitchen">
+    <static>true</static>
+    <link name="link">
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://cherry_kitchen_wall/meshes/cherry_kitchen_wall.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

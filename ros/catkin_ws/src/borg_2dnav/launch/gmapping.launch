@@ -1,0 +1,11 @@
+<launch>
+        
+	<node pkg="gmapping" type="slam_gmapping" respawn="false" name="gmapping" output="screen">
+                <param name="xmin" value="-1"/>
+                <param name="xmax" value="6"/>
+                <param name="ymin" value="-5"/>
+                <param name="ymax" value="2"/>
+                <remap from="scan" to="/sudo/laser/scan"/>
+
+	</node>
+</launch>

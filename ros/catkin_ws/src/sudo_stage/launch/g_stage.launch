@@ -1,0 +1,4 @@
+<launch>
+		
+	<node pkg="stage_ros" type="stageros" respawn="false" name="sudo_stage" output="screen" args="$(find sudo_stage)/g_world/kitchen.world" />
+</launch>

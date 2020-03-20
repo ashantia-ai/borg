@@ -1,0 +1,14 @@
+<package>
+  <description brief="teleop_keyboard">
+     teleop_keyboard
+  </description>
+  <author>Egbert van der Wal</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/teleop_keyboard</url>
+  <depend package="roscpp"/>
+  <depend package="geometry_msgs"/>
+
+</package>
+
+

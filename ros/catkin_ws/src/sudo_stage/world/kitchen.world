@@ -1,0 +1,67 @@
+define topurg ranger
+(
+	sensor( 			
+    range [ 0.0  5 ]
+    fov 359
+   samples 180
+  )
+
+  # generic model properties
+  color "black"
+  size [ 0.050 0.050 0.100 ]
+)
+define erratic position
+(
+  size [0.350 0.350 0.250]
+  origin [-0.050 0.000 0.000 0.000]
+  gui_nose 0
+  localization "gps"
+  localization_origin [0 0 0 0]
+  topurg(pose [ 0.000 0.000 0.000 0.300 ])
+  drive "omni"
+
+)
+
+define floorplan model
+(
+  # sombre, sensible, artistic
+  color "gray30"
+
+  # most maps will need a bounding box
+  boundary 1
+
+  gui_nose 0
+  gui_grid 0
+
+  gui_outline 0
+  gripper_return 0
+  fiducial_return 0
+  laser_return 1
+
+)
+
+# set the resolution of the underlying raytrace model in meters
+resolution 0.02
+
+interval_sim 100  # simulation timestep in milliseconds
+
+
+window
+( 
+  size [ 717 609 ] 
+
+  rotate [ 2.000 0.440 ]
+  scale 42.175 
+)
+
+# load an environment bitmap
+floorplan
+( 
+  name "kitchen"
+  bitmap "cherry.pgm"
+  size [10.000 10.000 0.500]
+  pose [ -5.000 -5.000 0.000 90.000 ]
+)
+
+# throw in a robot
+erratic( pose [ -3.500 -8.130 0.000 0.000 ] name "sudo" color "blue")

@@ -1,0 +1,99 @@
+[navigation]
+#The rate that CACLA will give commands
+loop_rate = 5			
+								
+#Initial position X,Y,Z,Roll,Pitch,Yaw
+initial_position = 4:-0.5:0.02:0:0:0
+
+#Goal position X,Y,Yaw
+goal_position = 4:-0.5:0.0
+
+
+#Reward value section
+location_fix_reward = 0.5
+angular_fix_reward = 200
+fix_punishment = -0.5
+trial_fail_punishment = -50.0
+obstacle_punishment = -2.0
+negative_speed_punishment = 0.0
+# 0- Disabled 1-Enabled
+complex_reward = 0
+
+#Lenght of the Trial
+trial_length = 60
+
+#Degrees
+goal_theta_threshold = 20
+#Meters
+goal_xy_threshold = 0.3
+
+#State input type - Control the number of hidden units in Cacla param
+input_type = location
+
+queue_size = 50
+replay_frequency = 200
+acceptable_run_threshold = 50
+success_trials_threshold = 40
+
+#Initial position change after succeeding in reaching the goal. In cm and degrees
+x_change = 10
+y_change = 10
+yaw_change = 5
+
+maximum_linear_speed = 0.4
+#m/s
+maximum_angular_speed = 1.0
+#rad/s
+
+
+[cacla]
+alpha 			= 0.0001:0.005
+#The learning rate for the Critic in [0, 1]
+
+beta  			= 0.0001:0.005
+#The learning rate for the Actor in [0, 1]
+
+sigma 			= 0.01:1.0
+#The standard deviation for Gaussian exploration > 0
+
+discount_factor = 0.99
+#The value attributed to future rewards in (0, 1)
+
+random_decay    = 0.9999
+#The decay of the epsilon and sigma paramters after
+#each save of the algorithm. This is the factor
+#the value is multiplied with. Should be in [0, 1]
+				                             					
+exploration_strategy = 2
+#EXPLORE_GAUSSIAN  = 2 or EXPLORE_GREEDY = 1 or EXPLORE_NAVIGATION = 3
+
+num_outputs = 2
+#The number of outputs required from the actor. This
+#should be an integer greater than 0.
+
+num_hiddens = 1
+
+#0- TANH , 1-RBF
+activation_function = 1
+
+#epsilon             The exploration probability for 
+#                    e-greedy exploration in [0, 1]
+#
+#ensemble_size       The number of Neural Networks to use in ensemble to
+#                    optimize the output of the actor and critic. The
+#                    output of these networks is averaged to obtain the
+#                    next action.
+#td_var              The initial variance of the TD-error. Default 1.0
+#var_beta            The factor of the update of the running average of the
+#                    varianceof the TD-error. Default: 0.001
+
+[remote]
+
+base_ip = 129.125.178.
+ip_range = 95
+
+#base_ip = localhost, 129.125.178. , 127.0.0.
+#ip_range = ,95,0:1:2:3
+
+#base_ip = 129.125.178. , 10.20.30.
+#ip_range =  ,95,200:201:202:203

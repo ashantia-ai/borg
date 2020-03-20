@@ -1,0 +1,16 @@
+<launch>
+    <param name="robot_description" textfile="$(find sudo_description)/urdf/model_simple.urdf"/>
+    <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 odom base_footprint 100" />
+    <node pkg="tf" type="static_transform_publisher" name="base_footprint_to_chassis_0" args="0 0 0.16 0 0 0 base_footprint chassis 100" />
+    <!--node pkg="tf" type="static_transform_publisher" name="base_link_to_chassis" args="0.00 0 0 0 0 0  base_link chassis 100" /-->
+    <node pkg="tf" type="static_transform_publisher" name="chassis_to_bottom_body_box" args="0.00 0 0.31 0 0 0  chassis bottom_body_box 100" />
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser_link" args="-0.2 0 0.3 3.14 0 0   chassis laser_link 10" />
+    
+    <!-- Wheel Connections -->
+     
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_right_wheel" args="0.1 -.17 -0.03 0 1.5707 1.5707  chassis right_wheel 100" />
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_left_wheel" args="0.1 .17 -0.03 0 1.5707 1.5707  chassis left_wheel 100" />
+    <node pkg="tf" type="static_transform_publisher" name="bottom_body_box_to_mico_base_link" args="0.1 0 0.255 -3.14 0 0  bottom_body_box arm_base 100" />
+    
+    <node pkg="tf" type="static_transform_publisher" name="mico_base_link_to_camera_link" args="-0.163 -0.210 0.288 0.24 0 0 arm_base camera_link 100" />
+</launch>

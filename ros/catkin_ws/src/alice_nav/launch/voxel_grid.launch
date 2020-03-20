@@ -1,0 +1,13 @@
+<launch>
+	
+    <node pkg="borg_pointcloud" name="voxel_xtion1" type="transform" output="screen">
+    	<param name="x_min" value="-5"/>
+	<!-- The top value cuts the point cloud from the first pilar of the robot-->
+	<param name="leaf_size" value="0.03"/>
+    	<param name="remove_noise" value="true"/>
+        <param name="input_topic" value="/front_xtion/depth/points"/>
+        <param name="output_topic" value="/front_xtion_voxel_grid/output"/>
+    </node>		
+
+    
+</launch>

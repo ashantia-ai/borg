@@ -1,0 +1,37 @@
+DWAPlannerROS:
+  acc_lim_x: 1.2                    # 2.5
+  acc_lim_y: 1.2                    # 2.5
+  acc_lim_theta: 2.0                # 3.2
+  acc_lim_trans: 1.2
+
+  max_trans_vel: 1.0
+  min_trans_vel: 0.05
+  
+  max_vel_x: 1.0                    # 0.5
+  min_vel_x: -1.0                   # 0.1
+  max_vel_y: 1.0
+  min_vel_y: -1.0
+  min_rot_vel: 0.1  
+  max_rot_vel: 0.5
+
+# ---- Goal tolerance parameters
+  yaw_goal_tolerance: 0.2           # 0.05
+  xy_goal_tolerance: 0.2            # 0.1
+  latch_xy_goal_tolerance: true     # false
+  
+# ---- Foward simulation parameters
+# We'll configure how long and with what granularity we'll forward simulate trajectories  
+  sim_time: 1
+  sim_granularity: 0.05             # 0.025
+  angular_sim_granularity: 0.05     # 0.025
+  vx_samples: 10                    # 3
+  vtheta_samples: 10                # 20
+  vy_samples: 18
+  
+  goal_distance_bias: 30.0  
+  path_distance_bias: 10.0           
+  occdist_scale: 0.01               
+  forward_point_distance: 0.0          # default 0.325m 
+
+
+

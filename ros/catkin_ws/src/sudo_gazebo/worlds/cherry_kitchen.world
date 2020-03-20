@@ -1,0 +1,157 @@
+<sdf version='1.4'>
+  <world name='default'>
+    <physics type='ode'>
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>200000</real_time_update_rate>
+      <gravity>0 0 -9.8</gravity>
+    </physics>
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose>0 0 10 0 -0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+    <light type="spot" name="light_2">
+	    <pose>2.9 0.04 2.8 0 0 0</pose>
+	    <diffuse>.9 .9 .9 1</diffuse>
+	    <specular>.1 .1 .1 1</specular>
+	    <attenuation>
+		<range>5</range>
+	    </attenuation>
+	    <direction>0 0 -1</direction>
+	    <cast_shadows>true</cast_shadows>
+	    <spot>
+	    	<inner_angle>0.6</inner_angle>
+	    	<outer_angle>1.0</outer_angle>
+		<falloff>1.00</falloff>
+	    </spot>
+    </light>
+	<light type="spot" name="light_1">
+	    <pose>2.9 2.04 2.8 0 0 0</pose>
+	    <diffuse>.9 .9 .9 1</diffuse>
+	    <specular>.1 .1 .1 1</specular>
+	    <attenuation>
+		<range>5</range>
+	    </attenuation>
+	    <direction>0 0 -1</direction>
+	    <cast_shadows>true</cast_shadows>
+	    <spot>
+	    	<inner_angle>0.6</inner_angle>
+	    	<outer_angle>1.0</outer_angle>
+		<falloff>1.00</falloff>
+	    </spot>
+	</light>
+    <model name='ground_plane'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+            </friction>
+            <bounce/>
+            <contact>
+              <ode/>
+            </contact>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0</linear>
+          <angular>0</angular>
+        </velocity_decay>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+    </model>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
+    </scene>
+    <model name='Kitchen Dining'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://cherry_kitchen_wall/meshes/collision2.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <velocity_decay>
+          <linear>0</linear>
+          <angular>0</angular>
+        </velocity_decay>
+        <self_collide>1</self_collide>
+        <kinematic>1</kinematic>
+        <gravity>1</gravity>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://cherry_kitchen_wall/meshes/cherry_kitchen_wall.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <gravity>1</gravity>
+      </link>
+      <pose>1.57517 -2 -0.2 0 -0 0</pose>
+    </model>
+    
+    <model name='goal'>
+	<link name="my_visual_link">
+          <gravity>0</gravity>
+	  <visual name="my_visual">
+	  <plugin name='my_visual_plugin' filename='libvisual_goal.so'/>
+	  <pose>0 0 0 0 0 0</pose>
+	  <geometry>
+	  <!-- The following empty tag is needed because otherwise a
+	  default box of size 1 1 1 is put in as a geometry -->
+	    <empty>
+	    </empty>
+	  </geometry>
+	  </visual>
+	</link>
+      <pose>0 0 0 0 0 0</pose>
+    </model>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>13.0472 -13.689 26.9293 5.23225e-17 1.01164 2.5402</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+  </world>
+</sdf>

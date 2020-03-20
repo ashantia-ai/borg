@@ -1,0 +1,22 @@
+<launch>
+  <arg name="use_sim_time" default="true"/>
+  <!--Set use sim_time flag -->
+  <group if="$(arg use_sim_time)">
+    <param name="/use_sim_time" value="true" />
+  </group>
+  
+  <param name="robot_description" textfile="$(find sudo_description)/urdf/model.urdf"/>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find sudo_gazebo)/worlds/sudo.world"/>
+    <!-- more default parameters can be changed here -->
+  </include>
+  
+  <!-- Spawn sudo into Gazebo -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find sudo_description)/sdf/model.sdf -sdf -z 1 -model sudo-spawn" />  
+  <!-- Calling transforms -->
+  <include file="$(find sudo_gazebo)/launch/tf.launch" />
+  
+  
+</launch>

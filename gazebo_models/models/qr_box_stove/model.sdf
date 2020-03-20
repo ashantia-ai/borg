@@ -1,0 +1,30 @@
+<?xml version="1.0" ?> 
+<sdf version="1.5"> 
+  <model name="qr_box_stove"> 
+     <pose>0 0 0.25 0 0 0</pose><!-- set z to 1/2*height, so that box doesn't disappear half in the ground --> 
+    <static>true</static> <!-- change this to false if model should move --> 
+    <link name="link"> 
+      <collision 	name="collision"> 
+        <geometry> 
+          <box> 
+            <size>1.0 0.8 1.3</size> <!-- size of the box, x y z --> 
+          </box> 
+        </geometry> 
+      </collision> 
+      <visual name="visual"> 
+        <geometry> 
+         <box> 
+            <size>1.0 0.8 1.3</size><!-- size of the box, x y z --> 
+          </box> 
+        </geometry> 
+        <material> 
+          <script> 
+            <uri>model://qr_box_stove/materials/scripts</uri> 
+            <uri>model://qr_box_stove/materials/textures</uri> 
+            <name>vrc/qr_stove</name> 
+          </script> 
+        </material> 
+      </visual> 
+    </link> 
+  </model> 
+</sdf> 

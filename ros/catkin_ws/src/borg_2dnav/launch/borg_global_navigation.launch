@@ -1,0 +1,33 @@
+<launch>
+	<!-- Run config for p2os -->
+	<include file="$(find borg_2dnav)/launch/sudo_config.launch" />
+
+	<!-- Run the map server -->
+	<node name="map_server" pkg="map_server" type="map_server" args="$(env BORG)/map/kitchen.yaml"/>
+	
+	<!--- Run AMCL -->
+	<node pkg="amcl" type="amcl" name="amcl" output="screen">
+		<param name="base_frame_id" value="base_link"/>
+		<!--param name="scan" value="/sudo/laser/scan"/-->
+	        <remap from="scan" to="/sudo/laser/scan"/>
+		<param name="odom_alpha1" value="0.05" />
+		<param name="odom_alpha2" value="0.05" />
+		<param name="odom_alpha3" value="0.05" />
+		<param name="odom_alpha4" value="0.05" />
+	</node>
+
+	<!-- Run move_base -->
+	<node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+		<rosparam file="$(find borg_2dnav)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+		<rosparam file="$(find borg_2dnav)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+		<rosparam file="$(find borg_2dnav)/config/local_costmap_params.yaml" command="load" />
+		<rosparam file="$(find borg_2dnav)/config/global_costmap_params.yaml" command="load" />
+		<rosparam file="$(find borg_2dnav)/config/base_local_planner_params.yaml" command="load" />
+		<param name="controller_frequency" value="5" />
+		<param name="planner_patience" value="0.2" />
+		<param name="clearing_rotation_allowed" value="false" />
+		<param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS"/>
+        <param name="base_global_planner" value="global_planner/GlobalPlanner"/>		
+	</node>
+</launch>
+

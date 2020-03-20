@@ -1,0 +1,10 @@
+## Round robot or edgy robot?
+map_type: costmap
+
+inflation_radius: 0.46
+
+laser:
+  laser_scan_sensor: {sensor_frame: base_laser_link, data_type: LaserScan, topic: base_scan, marking: true, clearing: true, expected_update_rate: 0.5, obstacle_range: 8, raytrace_range: 10}
+
+
+

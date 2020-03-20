@@ -1,0 +1,16 @@
+<launch>
+
+	
+    <!-- Load robot model -->
+    <param name="robot_description" textfile="$(find alice_description)/urdf/complete_model.urdf"/>
+
+    <!-- Load Robot State Publisher -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+      respawn="false" output="screen">
+    </node>
+    <!-- Load Robot State Publisher -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"
+      respawn="false" output="screen">
+         <rosparam param="source_list">["/panJointState", "/tiltJointState", "/mico_arm_driver/out/joint_state", "/base_joint_states"]</rosparam>
+    </node>
+</launch>

@@ -1,0 +1,36 @@
+<launch>
+  <arg name="use_sim_time" default="true"/>
+  <!--Set use sim_time flag -->
+  <group if="$(arg use_sim_time)">
+    <param name="/use_sim_time" value="true" />
+  </group>
+  
+  <param name="robot_description" textfile="$(find sudo_description)/urdf/mico_arm.urdf"/>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!--arg name="world_name" value="$(find sudo_gazebo)/worlds/test.sdf"/-->
+    <!-- more default parameters can be changed here -->
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+  
+  
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find sudo_description)/urdf/sudo_control.yaml" command="load"/>
+  
+   <!-- Loads controller manager to actually simulate joint movements -->
+  <node name="spawn_arm" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="sudo"
+  args="mico_joint_trajectory_action_controller joint_state_controller" />
+
+  
+  <!-- Spawn sudo into Gazebo -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find sudo_description)/urdf/mico_arm.urdf -urdf -z 0.1 -model sudo-spawn" />  
+  <!-- Calling transforms -->
+  <!--include file="$(find sudo_gazebo)/launch/tf_gazebo.launch" /-->
+  
+  
+</launch>

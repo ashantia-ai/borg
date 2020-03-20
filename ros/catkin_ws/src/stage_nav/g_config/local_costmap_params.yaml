@@ -1,0 +1,30 @@
+local_costmap:
+  global_frame: odom
+  robot_base_frame: base_link 
+  update_frequency: 5.0
+  publish_frequency: 5.0
+  static_map: false
+  rolling_window: true
+  width: 6
+  height: 6
+  origin_x: 0
+  origin_y: 0
+  resolution: 0.05
+  map_type: costmap
+
+  #footprint: [[0.2225,0.1385],[0.2225,-0.1385],[-0.2225,-0.1385],[-0.2225,0.1385]]  
+  footprint: [[0.2,0.17],[0.2,-0.17],[-0.2,-0.17],[-0.2,0.17]]
+  #footprint_padding: 0.01
+
+  plugins:
+  - {name: obstacle_layer_laser, type: 'costmap_2d::ObstacleLayer'}
+  - {name: inflation_layer, type: 'costmap_2d::InflationLayer'}
+
+  inflation_layer: {cost_scaling_factor: 10.0, enabled: true, inflation_radius: 0.34}
+  
+  obstacle_layer_laser:
+    observation_sources: laser_scan_sensor
+    track_unknown_space: true
+    enabled: true
+  obstacle_layer_footprint: {enabled: true}
+

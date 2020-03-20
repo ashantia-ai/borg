@@ -1,0 +1,45 @@
+#Python pyc
+
+*.pyc
+
+#Hidden files
+.*
+!.gitignore
+#temp files
+
+*.*~
+*~
+*.toc
+*.nav
+*.snm
+
+#C++ object files
+*.o
+
+#Obstacle avoidance Calibration files
+*.cal
+
+#Log Files
+*.log
+
+msg_gen/
+srv_gen/
+test_progress
+test_successes.log
+test_total_reward
+brain/src/freenect.py
+brain/data/behavior_precon.csv
+brain/data/behavior_starts.csv
+ros/borg_pioneer/src/borg_pioneer
+brain/data/behavior_completions.csv
+ros/map_analyzer/msg_gen/
+ros/map_analyzer/src/map_analyzer/
+ros/map_analyzer/srv_gen/
+ros/persocom/scripts/haarcascades/
+ros/teleop_keyboard/lib/
+ros/emotion_msg/src/emotion_msg/
+ros/borg_tools/borg_annotation/src/borg_annotation/
+ros/catkin_ws/devel
+ros/catkin_ws/build
+brain/data/models
+
