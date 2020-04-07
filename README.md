@@ -1,24 +1,25 @@
 # borg
 The Code to run and evaluate two-stage deep visual navigation using CNNs and reinforcement learning.
 
-Requirements:
-a. ROS Kinetic
-b. Gazebo
-c. Tensorflow (Version 1.9.0)
-d. Numpy
-e. OpenCV
+1. Requirements:
+   - ROS Kinetic
+   - Gazebo
+   - Tensorflow (Version 1.9.0)
+   - Numpy
+   - OpenCV
 
-1- Evaluating the CNN:
-a. Please correct the path to the latest model in the following files:
-borg/ros/catkin_ws/src/gazebo_controller/scripts/cafe_room_cnn_live_sudo.py line 416
-borg/ros/catkin_ws/src/gazebo_controller/scripts/kitchen_cnn_live.py line line 396
-b. Build the ros/catkin_ws using catkin build
-c. Copy the folders inside the gazebo models in the .gazebo folder in your home directory 
-d. run the omni_cafe.sh in the sudo_gazebo package, inside the launch folder.
-e. Run Rviz and load the given rviz setting.
-f. Select new navigation points and watch the CNN outputs from the red Arrows
+2. Evaluating the CNN:
+   - Please correct the path to the latest model in the following files:
+     - borg/ros/catkin_ws/src/gazebo_controller/scripts/cafe_room_cnn_live_sudo.py line 416
+     - borg/ros/catkin_ws/src/gazebo_controller/scripts/kitchen_cnn_live.py line line 396
+   - Build the ros/catkin_ws using catkin build
+   - Copy the folders inside the gazebo models in the .gazebo folder in your home directory 
+   - run the omni_cafe.sh in the sudo_gazebo package, inside the launch folder.
+   - Run Rviz and load the given rviz setting.
+   - Select new navigation points and watch the CNN outputs from the red Arrows
 
-The robot and its Environment
+
+3. The robot and its Environment:
 We have four environments.
 Maze
 One  maze type is a randomly generated matrix of a certain size (square size in our case). The maze is generated using the Maze_generator.py file in the cacla_nav package. You have to set the path inside the file. Read the script comments for more info.
