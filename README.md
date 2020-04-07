@@ -3,10 +3,11 @@ The Code to run and evaluate two-stage deep visual navigation using CNNs and rei
 
 1. Requirements:
    - ROS Kinetic
-   - Gazebo
+   - Gazebo (version that comes with Kinetic)
    - Tensorflow (Version 1.9.0)
    - Numpy
    - OpenCV
+   - Theano (for RL experiments)
 
 2. Evaluating the CNN:
    - Please correct the path to the latest model in the following files:
