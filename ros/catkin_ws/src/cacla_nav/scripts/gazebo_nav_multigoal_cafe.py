@@ -605,26 +605,27 @@ class MultiGoalGazebo(CACLA_nav):
             obj.pop('transform_listener', None)
             obj.pop('transformer', None)
             obj.pop('save_timer', None)
-            obj.pop('RL', None)
+
+            #obj.pop('RL', None)
             
-            print "WARNING. Loding states with Reset reached goals and init index. Check the code if change is required"
-            obj.pop('reached_goals', None)
-            obj.pop('init_index', None)
+            #print "WARNING. Loding states with Reset reached goals and init index. Check the code if change is required"
+            #obj.pop('reached_goals', None)
+            #obj.pop('init_index', None)
             #obj.pop('active_goal', None)
             
             
             
             self.__dict__.update(obj)
-            self.active_goal = 0
+            #self.active_goal = 0
             #self._init_subscribers()
             #self._init_ros_node()
-            self.reset()
+            #self.reset()
             self.trial_max_steps = 2000
-            self.steps_number = 0
-            self.init_index = 0
-            self.__reset_performance_variables()
-            self.consecutive_succes = list(numpy.zeros(15)) 
-            self.RL.clear_memory()  
+            #self.steps_number = 0
+            #self.init_index = 0
+            #self.__reset_performance_variables()
+            #self.consecutive_succes = list(numpy.zeros(15)) 
+            #self.RL.clear_memory()  
             self.running = True
             print "loading succeeded"
         except Exception as ex:
