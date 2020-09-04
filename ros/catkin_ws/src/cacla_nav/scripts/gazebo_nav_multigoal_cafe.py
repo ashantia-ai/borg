@@ -605,6 +605,7 @@ class MultiGoalGazebo(CACLA_nav):
             obj.pop('transform_listener', None)
             obj.pop('transformer', None)
             obj.pop('save_timer', None)
+
             #obj.pop('RL', None)
             
             #print "WARNING. Loding states with Reset reached goals and init index. Check the code if change is required"
@@ -618,9 +619,9 @@ class MultiGoalGazebo(CACLA_nav):
             #self.active_goal = 0
             #self._init_subscribers()
             #self._init_ros_node()
-            self.reset()
-            #self.trial_max_steps = 2000
-            self.steps_number = 0
+            #self.reset()
+            self.trial_max_steps = 2000
+            #self.steps_number = 0
             #self.init_index = 0
             #self.__reset_performance_variables()
             #self.consecutive_succes = list(numpy.zeros(15)) 
