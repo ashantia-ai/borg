@@ -495,7 +495,7 @@ class MultiGoalGazebo(CACLA_nav):
 
                 if (np.asarray(self.consecutive_succes).mean() >= 0.9)  and self.steps_number < 40:
                 # self.last_xp_replay_err < 0.5
-                # if True:
+                #if True:
                     self.reached_goals[self.active_goal] = 1
                     self.save_and_exit()  # doesnt really exit, just saves
                     self._prepare_next_init()
@@ -605,28 +605,49 @@ class MultiGoalGazebo(CACLA_nav):
             obj.pop('transform_listener', None)
             obj.pop('transformer', None)
             obj.pop('save_timer', None)
-            obj.pop('RL', None)
+            #obj.pop('RL', None)
             
-            print "WARNING. Loding states with Reset reached goals and init index. Check the code if change is required"
-            obj.pop('reached_goals', None)
-            obj.pop('init_index', None)
+            #print "WARNING. Loding states with Reset reached goals and init index. Check the code if change is required"
+            #obj.pop('reached_goals', None)
+            #obj.pop('init_index', None)
             #obj.pop('active_goal', None)
             
             
             
             self.__dict__.update(obj)
-            self.active_goal = 0
+            #self.active_goal = 0
             #self._init_subscribers()
             #self._init_ros_node()
             self.reset()
-            self.trial_max_steps = 2000
+            #self.trial_max_steps = 2000
             self.steps_number = 0
-            self.init_index = 0
-            self.__reset_performance_variables()
-            self.consecutive_succes = list(numpy.zeros(15)) 
-            self.RL.clear_memory()  
+            #self.init_index = 0
+            #self.__reset_performance_variables()
+            #self.consecutive_succes = list(numpy.zeros(15)) 
+            #self.RL.clear_memory()  
             self.running = True
             print "loading succeeded"
+
+            self.steps_data.append((self.RL.progress, self.RL.steps))
+                
+            try:
+                self.total_reward_queue.put_nowait(self.RL.total_reward)
+            except Queue.Full:
+                # self.analyze_experiment()
+                pass
+
+            if (np.asarray(self.consecutive_succes).mean() >= 0.9)  and self.steps_number < 40:
+            # self.last_xp_replay_err < 0.5
+            # if True:
+                self.reached_goals[self.active_goal] = 1
+                self.save_and_exit()  # doesnt really exit, just saves
+                self._prepare_next_init()
+
+            print 'Current goal:', self.active_goal
+            print 'consecutive successes: ', self.consecutive_succes
+            print 'steps numbers:        ', self.steps_number
+            self.reset()
+            self.steps_number = 0
         except Exception as ex:
             print "Loading of states went wrong"
             print repr(ex)
