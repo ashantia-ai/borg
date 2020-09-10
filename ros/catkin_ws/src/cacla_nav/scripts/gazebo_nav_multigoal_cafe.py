@@ -83,16 +83,24 @@ class MultiGoalGazebo(CACLA_nav):
         Take Note: Important Information.
         The multi goal for maze x,y index are rotated. Therefore we have to compensate for that here. In
         '''
-        
+        self._init_ros_node() 
         self.running = False  # Block callbacks to run
         self.mg_running = False
+
+        self.lowest_path = base_path
+        load_result = self.load_state()
         super(MultiGoalGazebo, self).__init__(base_path, reference_frame, x_init, y_init, g_l_for_parent, ordered_list_index, **kwargs)
+        print (rospy.is_shutdown())
+        print ("after Main load state and Super initialization")
+        if load_result:
+            print ("returning from init")
+            return
         self.nfq_args = {'epsilon':(0.1, 0.1) \
                 , 'discount_factor':0.99, 'random_decay': 0.995\
                 , 'explore_strategy':1, 'activation_function':1
                 , 'learning_rate':0.8, 'temperature':0.1, 'min_temperature':0.05, 'max_replay_size':50000}
         self._prepare_RL_variables()
-        
+        print ("after prepare RL vars") 
         self.goals = goals
         self.goal_set = []
         self.full_info = full_info
@@ -115,6 +123,7 @@ class MultiGoalGazebo(CACLA_nav):
         # which init position to start from
         self.init_index = 0
         self.init_no = len(self.full_info[0][1])
+        print ("before selection action")
         self.RL.select_action(self.empty_vector, self.active_goal)  # RL needs to be initialized first
         # self.active_goal = self.select_active_goal()    
 
@@ -231,10 +240,12 @@ class MultiGoalGazebo(CACLA_nav):
                                         nfq_action_outputs,
                                         maze_shape = (self.x_len , self.y_len)
                                         , **self.nfq_args)
-        self.RL.load_state()
+        #self.RL.load_state()
+        print ("After RL load_state")
         self.trial_length = 1000  # seconds
         self.trial_begin = rospy.Time().now().to_time()
         self.trial_time = lambda : rospy.Time().now().to_time() - self.trial_begin 
+        print ("after rospy")
         
     def _prepare_next_init(self):
         rospy.loginfo('learned This Goal from the current Init position, Saving Analysis and changing Init position')
@@ -596,6 +607,7 @@ class MultiGoalGazebo(CACLA_nav):
         try:
             f = file(filepath, 'rb')
             obj = dill.load(f)
+            print dir(obj)
             obj.pop('reset_stage',None)
             obj.pop('action_pub',None)
             obj.pop('publisher',None)
@@ -605,6 +617,7 @@ class MultiGoalGazebo(CACLA_nav):
             obj.pop('transform_listener', None)
             obj.pop('transformer', None)
             obj.pop('save_timer', None)
+            obj.pop('load_state', None)
 
             #obj.pop('RL', None)
             
@@ -616,6 +629,7 @@ class MultiGoalGazebo(CACLA_nav):
             
             
             self.__dict__.update(obj)
+
             #self.active_goal = 0
             #self._init_subscribers()
             #self._init_ros_node()
@@ -627,7 +641,6 @@ class MultiGoalGazebo(CACLA_nav):
             #self.consecutive_succes = list(numpy.zeros(15)) 
             #self.RL.clear_memory()  
             self.running = True
-            print "loading succeeded"
 
             self.steps_data.append((self.RL.progress, self.RL.steps))
                 
@@ -649,10 +662,12 @@ class MultiGoalGazebo(CACLA_nav):
             print 'steps numbers:        ', self.steps_number
             self.reset()
             self.steps_number = 0
+            print "Main loading succeeded"
+            return True
         except Exception as ex:
-            print "Loading of states went wrong"
+            print "Main Loading of states went wrong"
             print repr(ex)
-        
+            return False
     def launch_sim_and_world(self, ind):
         global simulation_env
         print 'killing existing worlds'
@@ -735,7 +750,8 @@ if __name__ == '__main__':
     experiment = MultiGoalGazebo(path, reference_frame, x_init_list, y_init_list,
                                 goal_list, ordered_index_list, goal_list_for_parent, full_info)
     experiment.load_state()
-    
+    print ("Starting main while loop") 
+    print (rospy.is_shutdown())
     while not rospy.is_shutdown():
         try:
             if experiment.running and experiment.mg_running:
@@ -745,5 +761,6 @@ if __name__ == '__main__':
         except rospy.ROSInterruptException as e:
             print repr(e)
             break
-    os.system('killall xterm -9')
-    
+        except Exception as e:
+            print repr(e)
+    print("Program exit happened") 

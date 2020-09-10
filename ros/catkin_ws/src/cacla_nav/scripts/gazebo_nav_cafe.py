@@ -124,6 +124,7 @@ class CACLA_nav(object):
         self.trial_max_steps = 200
         
         self.transformer = tf.Transformer()
+        #self._init_subscribers()
 
         self.ordered_list_index = ordered_list_index
         
@@ -143,6 +144,7 @@ class CACLA_nav(object):
         
         self._init_ros_node()
         
+        print("prepare structure and rest")
         self._prepare_file_structure(self.base_path)
         
         self.reference_frame = reference_frame
@@ -157,6 +159,7 @@ class CACLA_nav(object):
         
         self.metric_resolution = 0.4
         self.structure = self.x_len * self.y_len
+        print("preare init n goal and rest")
         self._prepare_init_n_goal_position((self.goals[self.pose_index][0], self.goals[self.pose_index][1], 0))
         self.__prepare_rewards()
         
@@ -184,7 +187,7 @@ class CACLA_nav(object):
         
         if kwargs:
             self.set_parameters(**kwargs)
-        
+        print("prepare RL variables and rest")
         self._convert_to_grid(self.x, self.y, self.radian)  # Initializes empty vector size
         self._prepare_RL_variables()
         
@@ -192,7 +195,9 @@ class CACLA_nav(object):
         self.save_timer = time.time()
         self.save_interval = 3600.0  # seconds
         self.failed_action_queue = []
-        self.reset()
+        print ("reset super")
+        #self.reset()
+        print ("Gazebo_nav_cafe init completed")
     
     def __repr__(self, *args, **kwargs):
         return object.__repr__(self, *args, **kwargs)
@@ -262,7 +267,7 @@ class CACLA_nav(object):
     def _init_ros_node(self):
         ''' Initialized the ros node and the main publishers
         '''
-        rospy.loginfo("Callbacks registered")
+        rospy.loginfo("Super Callbacks registered")
         rospy.init_node('Simple_nav')
         rospy.loginfo("Node initialized")
         
@@ -298,7 +303,7 @@ class CACLA_nav(object):
         self.col_subscriber = rospy.Subscriber("/collision", Bool, self.chassiscb, queue_size = 1)
     
     def __del__(self):
-        print "Cleaning up Cacla Nav Object"
+        print "Cleaning up Super/Base Cacla Nav Object"
         try:
             self.col_subscriber.unregister()
             del self.movebase_client
@@ -306,7 +311,7 @@ class CACLA_nav(object):
             print repr(e)
             pass
         
-        rospy.signal_shutdown("Shutting down the node")
+        #rospy.signal_shutdown("Shutting down the node")
         print "Cleanup Completed"
         
     def __load_network(self):
@@ -712,12 +717,12 @@ class CACLA_nav(object):
         action_outputs = 2
         nfq_action_outputs = 4
         
-        if self.method == ("cacla"): 
-            self.RL = util.cacla.CACLA(self.method_path, action_outputs, **self.cacla_args)
-        elif self.method == ("nfq"):
-            self.RL = rl_methods.nfq.NFQ(self.method_path, nfq_action_outputs, self.empty_vector.size, **self.nfq_args)
-        else:
-            self.RL = rl_methods.nfq.NFQ(self.method_path, nfq_action_outputs, **self.nfq_args)
+        #if self.method == ("cacla"): 
+        #    self.RL = util.cacla.CACLA(self.method_path, action_outputs, **self.cacla_args)
+        #elif self.method == ("nfq"):
+        #    self.RL = rl_methods.nfq.NFQ(self.method_path, nfq_action_outputs, self.empty_vector.size, **self.nfq_args)
+        #else:
+        #    self.RL = rl_methods.nfq.NFQ(self.method_path, nfq_action_outputs, **self.nfq_args)
         
         self.trial_length = 1000  # seconds
         self.trial_begin = rospy.Time().now().to_time()
@@ -910,7 +915,7 @@ class CACLA_nav(object):
             except Exception as ex:
                 print ex
             self.save_timer = time.time()
-            
+    '''        
     def load_state(self):
         base_path = os.path.join(self.base_path)
         filepath = os.path.join(base_path, 'gazebo_single_goal_kitchen_state')
@@ -921,7 +926,7 @@ class CACLA_nav(object):
         except Exception as ex:
             print "Loading of states went wrong"
             print ex
-        
+    '''    
     def odomcb(self):
         global NUM1, NUM2, LOCK1, LOCK2, ARR1, ARR2
         # self.linear_speed = data.twist.twist.linear.x * self.speed_multiplier
