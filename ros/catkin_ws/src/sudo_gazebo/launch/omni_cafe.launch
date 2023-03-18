@@ -15,7 +15,7 @@
   </include>
   
   <!-- Spawn sudo into Gazebo -->
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find sudo_description)/sdf/alice_pioneer2d.sdf -sdf -x 0 -y 0 -z 0.2 -model sudo-spawn"/>  
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-file $(find sudo_description)/sdf/beerobot.sdf -sdf -x 0 -y 0 -z 0.2 -model sudo-spawn"/>  
   <!-- Calling transforms -->
   
 </launch>

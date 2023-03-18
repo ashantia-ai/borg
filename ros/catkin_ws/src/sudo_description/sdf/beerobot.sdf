@@ -1,7 +1,8 @@
+<?xml version="1.0"?>
 <sdf version='1.6'>
   <model name='pioneer2dx'>
     <link name='chassis'>
-      <pose frame=''>0 0 0.16 0 -0 0</pose>
+      <pose frame=''>0 0 0.18 0 -0 0</pose>
       <inertial>
         <mass>5.67</mass>
         <inertia>
@@ -16,7 +17,7 @@
       <collision name='collision'>
         <geometry>
           <box>
-            <size>0.445 0.277 0.17</size>
+            <size>0.4 0.44 0.18</size>
           </box>
         </geometry>
       </collision>
@@ -180,31 +181,47 @@
           </box>
         </geometry>
       </visual>
-      <sensor name='camera' type='camera'>
-        <camera name='__default__'>
-          <horizontal_fov>1.047</horizontal_fov>
+      <sensor name="camera" type="depth">
+        <update_rate>20</update_rate>
+        <camera>
+          <horizontal_fov>1.047198</horizontal_fov>
           <image>
-            <width>320</width>
-            <height>240</height>
+            <width>640</width>
+            <height>480</height>
+            <format>R8B8G8</format>
           </image>
           <clip>
             <near>0.05</near>
-            <far>10</far>
+            <far>3</far>
           </clip>
         </camera>
-        <always_on>1</always_on>
-        <update_rate>30</update_rate>
-        <visualize>1</visualize>
-        <plugin name='camera_controller' filename='libgazebo_ros_camera.so'>
+        <plugin name="camera_controller" filename="libgazebo_ros_openni_kinect.so">
+          <baseline>0.2</baseline>
           <alwaysOn>true</alwaysOn>
-          <updateRate>30.0</updateRate>
-          <cameraName>sudo/bottom_webcam</cameraName>
-          <imageTopicName>image_raw</imageTopicName>
-          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <frameName>webcam_link</frameName>
+          <updateRate>1.0</updateRate>
+          <cameraName>orbecc_ir</cameraName>
+          <imageTopicName>/orbecc/color/image_raw</imageTopicName>
+          <cameraInfoTopicName>/orbecc/color/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>/orbecc/depth/image_raw</depthImageTopicName>
+          <depthImageInfoTopicName>/orbecc/depth/camera_info</depthImageInfoTopicName>
+          <pointCloudTopicName>/orbecc/depth/points</pointCloudTopicName>
+          <frameName>cameraLeft_depth_link</frameName>
+          <pointCloudCutoff>0.5</pointCloudCutoff>
+          <pointCloudCutoffMax>5.0</pointCloudCutoffMax>
+          <distortionK1>0.00000001</distortionK1>
+          <distortionK2>0.00000001</distortionK2>
+          <distortionK3>0.00000001</distortionK3>
+          <distortionT1>0.00000001</distortionT1>
+          <distortionT2>0.00000001</distortionT2>
+          <CxPrime>0</CxPrime>
+          <Cx>0</Cx>
+          <Cy>0</Cy>
+          <focalLength>0</focalLength>
+          <hackBaseline>0</hackBaseline>
         </plugin>
       </sensor>
     </link>
+    
     <link name='sick_laser'>
       <pose frame=''>0 0 0.3 0 -0 3.14</pose>
       <inertial>
@@ -311,6 +328,13 @@
         </limit>
       </axis>
     </joint>
+    <joint name="camera_depth_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${-PI/2} 0 ${-PI/2} "/>
+      <parent link="webcam"/>
+      <child link="cameraLeft_depth_link"/>
+    </joint>
+    <link name="cameraLeft_depth_link"/>
+
     <joint name='laser_joint' type='fixed'>
       <pose frame=''>0 0 0 0.0 -0 0</pose>
       <child>sick_laser</child>
@@ -325,16 +349,16 @@
       </axis>
     </joint>
     <plugin name='diff_drive' filename='libgazebo_ros_diff_drive.so'>
-      <leftJoint>right_wheel_hinge</leftJoint>
-      <rightJoint>left_wheel_hinge</rightJoint>
+      <leftJoint>left_wheel_hinge</leftJoint>
+      <rightJoint>right_wheel_hinge</rightJoint>
       <wheelSeparation>0.32</wheelSeparation>
       <wheelDiameter>0.22</wheelDiameter>
       <torque>2</torque>
-      <wheelTorque>2</wheelTorque>
-      <updateRate>30</updateRate>
-      <topicName>/cmd_vel</topicName>
+      <wheelTorque>20</wheelTorque>
+      <updateRate>40</updateRate>
+      <topicName>cmd_vel</topicName>
       <robotBaseFrame>base_link</robotBaseFrame>
-      <legacyMode>true</legacyMode>
+      <!--legacyMode>true</legacyMode-->
     </plugin>
   </model>
 </sdf>

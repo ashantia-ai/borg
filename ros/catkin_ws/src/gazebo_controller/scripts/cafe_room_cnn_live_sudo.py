@@ -413,7 +413,7 @@ if __name__ == '__main__':
     counter = 1
     average_image = None
     #model = '/home/borg/yiebo/CNN/sim/regression/lr1e-05/1/model/iteration190/model.ckpt'
-    model = '/home/ashantia/University/latest_models/cafe/iteration703/model.ckpt'
+    model = '/opt/enacer/sources/borg/latest_model/big_room/model.ckpt'
     #model = '/home/borg/amir/models/cafe/iteration703/model.ckpt'
     #config = tf.ConfigProto(
     #    device_count = {'GPU': 1}

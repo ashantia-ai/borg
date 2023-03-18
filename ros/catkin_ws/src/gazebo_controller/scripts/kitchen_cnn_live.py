@@ -393,7 +393,7 @@ if __name__ == '__main__':
     index = 0
     counter = 1
     average_image = None
-    model = '/home/borg/amir/models/kitchen/2/iteration1000/model.ckpt'
+    model = '/opt/enacer/sources/borg/latest_model/small_kitchen/model.ckpt'
     #config = tf.ConfigProto(
     #    device_count = {'GPU': 1}
     #)

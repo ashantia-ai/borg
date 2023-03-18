@@ -6,5 +6,5 @@
   </group>
   <include file="$(find sudo_gazebo)/launch/tf.launch" />
   <include file="$(find stage_nav)/launch/g_stage_sudo_navigation.launch" />
-  <node name="NN_estimation" pkg="gazebo_controller" type="cafe_room_cnn_live_sudo.py" output="log"/>
+  <!--node name="NN_estimation" pkg="gazebo_controller" type="cafe_room_cnn_live_sudo.py" output="log"/-->
 </launch>
